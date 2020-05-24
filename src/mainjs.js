@@ -1,8 +1,12 @@
 import { fetchCountries } from './fetchCountries.js';
+import { alert, defaultModules } from '@pnotify/core';
+import * as PNotifyMobile from '@pnotify/mobile';
+
+defaultModules.set(PNotifyMobile, {});
+
 var debounce = require('lodash.debounce');
 const inputCountry = document.querySelector('.inputCountry');
 const countryUl = document.querySelector('.country-ul');
-countryUl.innerHTML = 'Введите странну';
 function queryCountry() {
   if (inputCountry.value === '') {
     countryUl.innerHTML = 'Введите странну';
@@ -26,7 +30,7 @@ function queryCountry() {
         .join('');
 
       if (country.length > 10) {
-        countryUl.innerHTML = 'Введите больше букв';
+        alert('Введите больше букв');
       } else {
         countryUl.innerHTML = name;
       }
@@ -36,4 +40,5 @@ function queryCountry() {
     });
   }
 }
+
 inputCountry.addEventListener('input', debounce(queryCountry, 500));
